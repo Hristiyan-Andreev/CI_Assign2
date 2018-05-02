@@ -35,7 +35,7 @@ def ex_2_1(input2, target2):
     hidden_layer_weights = nn.coefs_[0]
     plot_hidden_layer_weights(hidden_layer_weights)
     print(C)
-    pass
+
 
 
 def ex_2_2(input1, target1, input2, target2):
@@ -47,5 +47,51 @@ def ex_2_2(input1, target1, input2, target2):
     :param target2: The target from dataset2
     :return:
     """
+    train = input1
+    test = input2
+    target_train = target1[:, 1]
+    target_test = target2[:, 1]
+
+
     ## TODO
+    n_hidden_neurons = 20
+
+    accu_list_train = np.zeros((10,1))
+    accu_list_test = np.zeros((10, 1))
+
+# Find the best seed
+    for seed in range(10):
+        nn = MLPClassifier(activation='tanh', solver='adam', max_iter=1000, hidden_layer_sizes=(n_hidden_neurons,),random_state=seed)
+        nn.fit(train, target_train)
+        accu_list_train[seed] = nn.score(train, target_train)
+        accu_list_test[seed] = nn.score(test, target_test)
+
+# Compute NN weights with the best seed
+    best_seed = np.argmax(accu_list_train)
+    best_nn = nn = MLPClassifier(activation='tanh', solver='adam', max_iter=1000, hidden_layer_sizes=(n_hidden_neurons,),random_state=best_seed)
+    best_nn.fit(train, target_train)
+
+# Evaluate the confusion matrix with best NN
+    predictions = nn.predict(test)
+    C = confusion_matrix(target_test, predictions)
+    print(C)
+
+# Plot results
+    plot_histogram_of_acc(accu_list_train, accu_list_test)
+    print(accu_list_test)
+# Find misclassified images
+#    comp_array = (target_test == predictions).all()
+    comp_array = target_test - predictions
+    print(comp_array)
+    comp_vector2 = np.nonzero(comp_array)
+    print(comp_vector2)
+
+    plot_image(test(comp_vector2[1]))
+    plot_image(test(comp_vector2[5]))
+    plot_image(test(comp_vector2[8]))
+    print(test(comp_vector2[1]))
+
+# Plot misclassified image
+
+
     pass
