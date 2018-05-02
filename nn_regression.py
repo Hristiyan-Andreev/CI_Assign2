@@ -79,8 +79,14 @@ def ex_1_1_b(x_train, x_test, y_train, y_test):
         nn.fit(x_train, y_train)
         mse_list_train[i] = calculate_mse(nn, x_train, y_train)
         mse_list_test[i] = calculate_mse(nn, x_test, y_test)
-    print(mse_list_train)
-    print(mse_list_test)
+
+    mse_test_std = np.std(mse_list_test)
+    mse_test_avg = np.average(mse_list_test)
+    mse_train_std = np.std(mse_list_train)
+    mse_train_avg = np.average(mse_list_train)
+
+    print(mse_list_train,'Train avg:',mse_train_avg,'Train STD:', mse_train_std)
+    print(mse_list_test, 'Test avg:',mse_test_avg,'Test STD:', mse_test_std)
 
 def ex_1_1_c(x_train, x_test, y_train, y_test):
     """
@@ -96,6 +102,7 @@ def ex_1_1_c(x_train, x_test, y_train, y_test):
 
     ## TODO
     hidden_neurons_totest = np.array([1, 2, 3, 4, 6, 8, 12, 20, 40])
+    # hidden_neurons_totest = np.array([20])
     dim1 = hidden_neurons_totest.shape[0]
     mse_test_matrix = np.zeros((dim1, 10))
     mse_train_matrix = np.zeros((dim1, 10))
@@ -235,8 +242,8 @@ def ex_1_2_c(x_train, x_test, y_train, y_test):
     :return:
     """
     ## TODO
-    ideal_hidden_neurons = 30  # all random, we must think about this
-    ideal_alpha = 1e-10  #random
+    ideal_hidden_neurons = 8  # all random, we must think about this
+    ideal_alpha = 1e-2  #random
     ideal_solver = 'lbfgs'  #random
 
     # validation set generation
