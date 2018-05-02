@@ -25,6 +25,16 @@ def ex_2_1(input2, target2):
     :return:
     """
     ## TODO
+    n_hidden_neurons = 6
+    nn = MLPClassifier(activation='tanh', solver='adam', max_iter=200, hidden_layer_sizes=(n_hidden_neurons,))
+    target = target2[:,2]
+    ## Train the network
+    nn.fit(input2, target)
+    predictions = nn.predict(input2)
+    C=confusion_matrix(target,predictions)
+    hidden_layer_weights = nn.coefs_[0]
+    plot_hidden_layer_weights(hidden_layer_weights)
+    print(C)
     pass
 
 
