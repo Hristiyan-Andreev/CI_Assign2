@@ -101,8 +101,8 @@ def ex_1_1_c(x_train, x_test, y_train, y_test):
     """
 
     ## TODO
-    # hidden_neurons_totest = np.array([1, 2, 3, 4, 6, 8, 12, 20, 40])
-    hidden_neurons_totest = np.array([4])
+    hidden_neurons_totest = np.array([1, 2, 3, 4, 6, 8, 12, 20, 40])
+    # hidden_neurons_totest = np.array([20])
     dim1 = hidden_neurons_totest.shape[0]
     mse_test_matrix = np.zeros((dim1, 10))
     mse_train_matrix = np.zeros((dim1, 10))
@@ -119,7 +119,7 @@ def ex_1_1_c(x_train, x_test, y_train, y_test):
         k += 1
     plot_mse_vs_neurons(mse_train_matrix, mse_test_matrix, hidden_neurons_totest)
     plt.show()
-    plot_learned_function(4, x_train, y_train, 0, x_test, y_test, predictions_test)
+    plot_learned_function(40, x_train, y_train, 0, x_test, y_test, predictions_test)
     plt.show()
 
 def ex_1_1_d(x_train, x_test, y_train, y_test):
@@ -242,7 +242,7 @@ def ex_1_2_c(x_train, x_test, y_train, y_test):
     :return:
     """
     ## TODO
-    ideal_hidden_neurons = 8  # all random, we must think about this
+    ideal_hidden_neurons = 4  # all random, we must think about this
     ideal_alpha = 1e-2  #random
     ideal_solver = 'lbfgs'  #random
 
@@ -280,10 +280,12 @@ def ex_1_2_c(x_train, x_test, y_train, y_test):
     mse_test_vector = np.array(())
     mse_validation_vector = np.array(())
     mse_train_vector = np.array(())
+    last_error=np.zeros((10,1))
     for i in range(10):
-        mse_test_vector = np.append(mse_test_vector, mse_test_matrix[i, 0:int(j_index[i])])
-        mse_validation_vector = np.append(mse_validation_vector, mse_validation_matrix[i, 0:int(j_index[i])])
-        mse_train_vector = np.append(mse_train_vector, mse_train_matrix[i, 0:int(j_index[i])])
+        mse_test_vector = np.append(mse_test_vector, mse_test_matrix[i, int(j_index[i])])
+        mse_validation_vector = np.append(mse_validation_vector, mse_validation_matrix[i, int(j_index[i])])
+        mse_train_vector = np.append(mse_train_vector, mse_train_matrix[i, int(j_index[i])])
+        last_error[i] = mse_validation_matrix[i,int(j_index[i])]
 
     mse_test_mean = np.mean(mse_test_vector)
     mse_validation_mean = np.mean(mse_validation_vector)
@@ -292,16 +294,13 @@ def ex_1_2_c(x_train, x_test, y_train, y_test):
     mse_validation_std = np.std(mse_validation_vector)
     mse_train_mean_std = np.std(mse_train_vector)
 
-    optimal_choice = np.argmin(j_index)  # num. iteration = 20*j_index(optimal_choice)
-    mse_test_mean_opt = np.mean(mse_test_matrix[optimal_choice, 0:int(j_index[optimal_choice])])
-    mse_valid_mean_opt = np.mean(mse_validation_matrix[optimal_choice, 0:int(j_index[optimal_choice])])
-    mse_train_mean_opt = np.mean(mse_train_matrix[optimal_choice, 0:int(j_index[optimal_choice])])
-    mse_test_std_opt = np.std(mse_test_matrix[optimal_choice, 0:int(j_index[optimal_choice])])
-    mse_valid_std_opt = np.std(mse_validation_matrix[optimal_choice, 0:int(j_index[optimal_choice])])
-    mse_train_std_opt = np.std(mse_train_matrix[optimal_choice, 0:int(j_index[optimal_choice])])
+    optimal_choice = np.argmin(last_error)
+    mse_test_opt = mse_test_matrix[optimal_choice, int(j_index[optimal_choice])]
+    mse_valid_opt = mse_validation_matrix[optimal_choice, int(j_index[optimal_choice])]
+    mse_train_opt = mse_train_matrix[optimal_choice, int(j_index[optimal_choice])]
 
     print(mse_test_mean, mse_validation_mean, mse_train_mean, mse_test_std,  mse_validation_std, mse_train_mean_std)
-    print(mse_test_mean_opt, mse_valid_mean_opt, mse_train_mean_opt, mse_test_std_opt, mse_valid_std_opt, mse_train_std_opt)
+    print(mse_test_opt, mse_valid_opt, mse_train_opt)
     print(optimal_choice)
-    print(j_index)
+
 
