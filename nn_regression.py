@@ -101,8 +101,8 @@ def ex_1_1_c(x_train, x_test, y_train, y_test):
     """
 
     ## TODO
-    hidden_neurons_totest = np.array([1, 2, 3, 4, 6, 8, 12, 20, 40])
-    # hidden_neurons_totest = np.array([20])
+    # hidden_neurons_totest = np.array([1, 2, 3, 4, 6, 8, 12, 20, 40])
+    hidden_neurons_totest = np.array([4])
     dim1 = hidden_neurons_totest.shape[0]
     mse_test_matrix = np.zeros((dim1, 10))
     mse_train_matrix = np.zeros((dim1, 10))
@@ -119,7 +119,7 @@ def ex_1_1_c(x_train, x_test, y_train, y_test):
         k += 1
     plot_mse_vs_neurons(mse_train_matrix, mse_test_matrix, hidden_neurons_totest)
     plt.show()
-    plot_learned_function(40, x_train, y_train, 0, x_test, y_test, predictions_test)
+    plot_learned_function(4, x_train, y_train, 0, x_test, y_test, predictions_test)
     plt.show()
 
 def ex_1_1_d(x_train, x_test, y_train, y_test):

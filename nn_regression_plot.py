@@ -21,7 +21,7 @@ def plot_mse_vs_neurons(train_mses, test_mses, n_hidden_neurons_list):
     :param n_hidden_neurons_list: List containing number of hidden neurons
     :return:
     """
-    plt.figure(figsize=(10, 7))
+    plt.figure(figsize=(8, 6))
     plt.title("Variation of testing and training MSE with number of neurons in the hidden layer")
 
     for data, name, color in zip([train_mses, test_mses], ["Training MSE", "Testing MSE"], ['orange', 'blue']):
@@ -34,6 +34,7 @@ def plot_mse_vs_neurons(train_mses, test_mses, n_hidden_neurons_list):
 
     plt.xlabel("Number of neurons in the hidden layer")
     plt.ylabel("MSE")
+    # plt.semilogy()
     # plt.semilogx()
     plt.legend()
     plt.show()
