@@ -85,8 +85,10 @@ def ex_1_1_b(x_train, x_test, y_train, y_test):
     mse_train_std = np.std(mse_list_train)
     mse_train_avg = np.average(mse_list_train)
 
-    print(mse_list_train,'Train avg:',mse_train_avg,'Train STD:', mse_train_std)
-    print(mse_list_test, 'Test avg:',mse_test_avg,'Test STD:', mse_test_std)
+    print('Train min:', mse_list_train.min(),'Train max:',mse_list_train.max(),'Train avg:',mse_train_avg,'Train STD:', mse_train_std)
+    print('Test min:', mse_list_test.min(),'Test max:',mse_list_test.max(), 'Test avg:',mse_test_avg,'Test STD:', mse_test_std)
+    print('Train errors:',mse_list_train)
+    print('Test errors:', mse_list_test)
 
 def ex_1_1_c(x_train, x_test, y_train, y_test):
     """

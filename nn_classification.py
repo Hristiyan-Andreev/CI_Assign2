@@ -86,7 +86,7 @@ def ex_2_2(input1, target1, input2, target2):
     comp_vector2 = np.nonzero(comp_array)
     print(comp_vector2)
 
-    plot_image(test(comp_vector2[1]))
+    plot_image(test(comp_vector2(1)))
     plot_image(test(comp_vector2[5]))
     plot_image(test(comp_vector2[8]))
     print(test(comp_vector2[1]))
