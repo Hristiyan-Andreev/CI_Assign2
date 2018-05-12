@@ -1,7 +1,7 @@
 from sklearn.metrics import confusion_matrix, mean_squared_error
 
 from sklearn.neural_network.multilayer_perceptron import MLPClassifier
-from nn_classification_plot import plot_hidden_layer_weights, plot_histogram_of_acc
+from nn_classification_plot import plot_hidden_layer_weights, plot_histogram_of_acc, plot_random_images
 import numpy as np
 
 __author__ = 'bellec,subramoney'
@@ -61,11 +61,13 @@ def ex_2_2(input1, target1, input2, target2):
 
 # Find the best seed
     for seed in range(10):
-        nn = MLPClassifier(activation='tanh', solver='adam', max_iter=1000, hidden_layer_sizes=(n_hidden_neurons,),random_state=seed)
+        nn = MLPClassifier(activation='tanh', solver='adam', max_iter=1000, hidden_layer_sizes=(n_hidden_neurons,), random_state=seed)
         nn.fit(train, target_train)
         accu_list_train[seed] = nn.score(train, target_train)
         accu_list_test[seed] = nn.score(test, target_test)
 
+    print(accu_list_train)
+    print(accu_list_test)
 # Compute NN weights with the best seed
     best_seed = np.argmax(accu_list_train)
     best_nn = nn = MLPClassifier(activation='tanh', solver='adam', max_iter=1000, hidden_layer_sizes=(n_hidden_neurons,),random_state=best_seed)
@@ -80,18 +82,19 @@ def ex_2_2(input1, target1, input2, target2):
     plot_histogram_of_acc(accu_list_train, accu_list_test)
     print(accu_list_test)
 # Find misclassified images
-#    comp_array = (target_test == predictions).all()
     comp_array = target_test - predictions
-    print(comp_array)
     comp_vector2 = np.nonzero(comp_array)
+<<<<<<< HEAD
     print(comp_vector2)
 
     plot_image(test(comp_vector2(1)))
     plot_image(test(comp_vector2[5]))
     plot_image(test(comp_vector2[8]))
     print(test(comp_vector2[1]))
+=======
+>>>>>>> 590cfb03b659199cfec13c3c6794c009a26452a7
 
 # Plot misclassified image
-
+    plot_random_images(test[comp_vector2], n_images=3)
 
     pass
